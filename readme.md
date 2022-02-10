@@ -34,6 +34,7 @@ test
 - Run the test case on Android device:
 
     `android/library/src/androidTest/java/com/tsinglink/android/library/TextDrawTest.kt`
+    
 License
 -------
 
