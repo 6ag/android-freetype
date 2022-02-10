@@ -1,0 +1,1 @@
+cd to this folder,and ndk-build

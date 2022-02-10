@@ -1,0 +1,9 @@
+freetype-2.11.1/objs/
+freetype-2.11.1/android-libs/arm64-v8a/include/
+freetype-2.11.1/android-libs/armeabe-v7a/include/
+freetype-2.11.1/android-libs/x86/include/
+obj/
+*.a
+*.la
+.idea/
+.vscode/

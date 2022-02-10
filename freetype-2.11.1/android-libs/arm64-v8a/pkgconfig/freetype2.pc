@@ -1,0 +1,14 @@
+prefix=/Users/pro21/gitlab/learning/freetype2/freetype-2.11.1/android-libs/arm64-v8a
+exec_prefix=/Users/pro21/gitlab/learning/freetype2/freetype-2.11.1/android-libs/arm64-v8a
+libdir=/Users/pro21/gitlab/learning/freetype2/freetype-2.11.1/android-libs/arm64-v8a
+includedir=/Users/pro21/gitlab/learning/freetype2/freetype-2.11.1/android-libs/arm64-v8a/include
+
+Name: FreeType 2
+URL: https://freetype.org
+Description: A free, high-quality, and portable font engine.
+Version: 24.1.18
+Requires:
+Requires.private: 
+Libs: -L${libdir} -lfreetype
+Libs.private: 
+Cflags: -I${includedir}/freetype2
