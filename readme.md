@@ -2,6 +2,13 @@ A text overlay library based on freetype2 for android, support overlay unicode t
 
 currently supported abi: arm64-v8a,armeabi-v7a, x86
 
+```kotlin
+draw.draw("""Log.i(TAG,"你好 hello ")""", 20, 30, frame, width, height)
+draw.draw("""Log.i(TAG,"こんにちは hello ")""", 20, 60, frame, width, height)
+
+draw.draw("你好 hello ", 20, 120, frame, width, height)
+draw.draw("こんにちは hello ", 20, 150, frame, width, height)
+```
 ![Example](111.png)
 
 usage:
