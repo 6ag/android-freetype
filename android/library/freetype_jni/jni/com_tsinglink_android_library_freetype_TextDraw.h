@@ -31,6 +31,9 @@ JNIEXPORT void JNICALL Java_com_tsinglink_android_library_freetype_TextDraw_rele
 JNIEXPORT void JNICALL Java_com_tsinglink_android_library_freetype_TextDraw_draw
   (JNIEnv *, jobject, jstring, jint, jint, jbyteArray, jint, jint);
 
+JNIEXPORT void JNICALL Java_com_tsinglink_android_library_freetype_TextDraw_drawBf
+   (JNIEnv *, jobject, jstring, jint, jint, jobject, jint, jint);
+
 #ifdef __cplusplus
 }
 #endif

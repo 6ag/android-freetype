@@ -227,15 +227,11 @@ void utf8_to_utf32(const UTF8 *input, UTF32 *output, int utf_size, size_t count)
 {
   ConvertUTF8toUTF32(&input,input + utf_size,&output, output + count,strictConversion);
 }
-/*
- * Class:     com_tsinglink_android_library_freetype_TextDraw
- * Method:    draw
- * Signature: (Ljava/lang/String;II)V
- */
-JNIEXPORT void JNICALL Java_com_tsinglink_android_library_freetype_TextDraw_draw
-  (JNIEnv *env, jobject obj, jstring text, jint x, jint y, jbyteArray jframe, jint width, jint height){
-     jclass jclz = env->GetObjectClass(obj);
-     jfieldID fid = env->GetFieldID(jclz,"ctx","J");
+
+static void draw(JNIEnv *env, jobject obj, jstring text, jint x, jint y, char *frame, jint width, jint height){
+
+    static jclass jclz = env->GetObjectClass(obj);
+    static jfieldID fid = env->GetFieldID(jclz,"ctx","J");
     jlong v = env->GetLongField(obj,fid);
     if (v == 0){
       return;
@@ -250,7 +246,6 @@ JNIEXPORT void JNICALL Java_com_tsinglink_android_library_freetype_TextDraw_draw
     utf8_to_utf32((const UTF8*)txt,utf32,utf_nb, num_chars);
     // __android_log_print(ANDROID_LOG_INFO,"TEXTDRAW","GetStringLength of %s result %d",(char *)txt,num_chars);
     const FT_ULong* charCodes = (FT_ULong* )utf32;
-    jbyte *frame = env->GetByteArrayElements(jframe,0);
     // const int num_chars = strlen(txt);
     FT_Vector     pen;                    /* untransformed origin  */
     FT_Error      error;
@@ -280,7 +275,7 @@ JNIEXPORT void JNICALL Java_com_tsinglink_android_library_freetype_TextDraw_draw
 
     error = FT_Load_Char( face, c, FT_LOAD_RENDER );
     if ( error ){
-      sprintf(msg,"FT_Load_Char %ulld error...", c);
+      // sprintf(msg,"FT_Load_Char %ulld error...", c);
       env->ThrowNew(Exception, msg);
     }
       
@@ -297,6 +292,24 @@ JNIEXPORT void JNICALL Java_com_tsinglink_android_library_freetype_TextDraw_draw
 
   // show_image();
   delete []utf32;
-  env->ReleaseByteArrayElements(jframe, frame, 0);
   env->ReleaseStringUTFChars(text, txt);
+}
+JNIEXPORT void JNICALL Java_com_tsinglink_android_library_freetype_TextDraw_drawBf
+   (JNIEnv *env, jobject obj, jstring text, jint x, jint y,jobject jbuf, jint width, jint height){
+    void *frame = env->GetDirectBufferAddress(jbuf);
+    draw(env,obj,text,x,y,(char *)frame,width,height);
+   }
+/*
+ * Class:     com_tsinglink_android_library_freetype_TextDraw
+ * Method:    draw
+ * Signature: (Ljava/lang/String;II)V
+ */
+JNIEXPORT void JNICALL Java_com_tsinglink_android_library_freetype_TextDraw_draw
+  (JNIEnv *env, jobject obj, jstring text, jint x, jint y, jbyteArray jframe, jint width, jint height){
+
+    jbyte *frame = env->GetByteArrayElements(jframe,0);
+
+    draw(env,obj,text,x,y,(char *)frame,width,height);
+
+    env->ReleaseByteArrayElements(jframe, frame, 0);
   }

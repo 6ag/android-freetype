@@ -13,6 +13,8 @@ COMMON_OPTIONS="
     --with-png=no
     --with-harfbuzz=no
     --with-brotli=no
+    --enable-static=no
+    --enable-shared=yes
     --with-sysroot=${SYSROOT}
     "
 TOOLCHAIN_PREFIX="${NDK_PATH}/toolchains/llvm/prebuilt/${HOST_PLATFORM}/bin"
@@ -23,12 +25,10 @@ make clean
 FOLDER=`pwd`/android-libs/armeabi-v7a
 mkdir -p ${FOLDER}
 CC=${TOOLCHAIN_PREFIX}/armv7a-linux-androideabi16-clang \
-
 ./configure \
     --prefix=${FOLDER} \
     --libdir=${FOLDER} \
     --host=arm-linux-androideabi \
-    --enable-neon  --enable-thumb --disable-gpl --disable-nonfree --enable-runtime-cpudetect \
     ${COMMON_OPTIONS}
 make -j$JOBS && make install
 
@@ -41,7 +41,6 @@ CC=${TOOLCHAIN_PREFIX}/aarch64-linux-android21-clang \
     --prefix=${FOLDER} \
     --libdir=${FOLDER} \
     --host=aarch64-linux-android \
-    --enable-debug \
     ${COMMON_OPTIONS}
 make -j$JOBS && make install
 
